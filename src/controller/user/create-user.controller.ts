@@ -8,7 +8,7 @@ export const createUser = async (req: Request, res: Response) => {
       data: {
         username,
         email,
-        password,
+        password,        
       },
     });
 

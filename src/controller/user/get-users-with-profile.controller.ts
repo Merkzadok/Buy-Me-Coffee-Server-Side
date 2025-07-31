@@ -8,8 +8,10 @@ export const getUsersWithProfile = async (req: Request, res: Response) => {
         profile: true,
       },
     });
+    console.log("user prisma: ",prisma.user);
+    
 
-    res.status(200).json({ user });
+    res.status(200).json({user});
   } catch (error) {
     res.status(500).json({ message: error });
   }
