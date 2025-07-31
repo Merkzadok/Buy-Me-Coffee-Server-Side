@@ -5,8 +5,8 @@ import { getUsersWithProfile } from "../controller/user/get-users-with-profile.c
 
 const userRouter = express.Router();
 
-userRouter.post("create-user", createUser);
-userRouter.get("get-users", getUsers);
-userRouter.get("get-users-with-profile", getUsersWithProfile);
+userRouter.post("/create-user", createUser);
+userRouter.get("/get-users", getUsers);
+userRouter.get("/get-users-with-profile", getUsersWithProfile);
 
 export default userRouter;

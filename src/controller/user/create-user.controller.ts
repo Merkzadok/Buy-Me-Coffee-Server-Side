@@ -9,8 +9,6 @@ export const createUser = async (req: Request, res: Response) => {
         username,
         email,
         password,
-        createdAt: new Date(),
-        updatedAt: new Date(),
       },
     });
 
