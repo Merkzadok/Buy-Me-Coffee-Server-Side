@@ -55,12 +55,12 @@ model Donation {
 
 model BankCard {
     id Int @id @default(autoincrement())
-    country String
+    country String?
     firstName String
     lastName String
-    cardNumber String
+    cardNumber String @unique
     expiryDate DateTime
-    userId Int
+    userId Int 
     user User @relation(fields: [userId], references: [id])
     createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
