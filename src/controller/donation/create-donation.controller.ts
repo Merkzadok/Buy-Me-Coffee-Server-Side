@@ -10,8 +10,13 @@ export const createDonation = async (req: Request, res: Response) => {
     donorId,
     recipientId,
   } = req.body;
-  try {
 
+  if (donorId === recipientId) {
+    return res
+      .status(400)
+      .json({ message: "Donor and recipient cannot be the same." });
+  }
+  try {
     const donation = await prisma.donation.create({
       data: {
         amount,
