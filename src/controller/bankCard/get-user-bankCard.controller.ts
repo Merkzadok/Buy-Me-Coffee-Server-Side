@@ -4,7 +4,7 @@ import { prisma } from "../../utils/prisma";
 export const getUsers = async (req: Request, res: Response) => {
   try {
     const user = await prisma.user.findUnique({
-      where: { Id: Number(req.params.id) },
+      where: { id: Number(req.params.id) },
       include: {
         bankCard: true,
       },

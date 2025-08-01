@@ -1,5 +1,5 @@
-import express, { Request, Response } from "express";
-import { prisma } from "./utils/prisma";
+import express from "express";
+
 import userRouter from "./router/user.router";
 import bankCardRouter from "./router/bankCard.router";
 

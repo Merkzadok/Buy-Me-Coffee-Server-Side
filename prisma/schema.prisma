@@ -6,7 +6,6 @@
 
 generator client {
   provider = "prisma-client-js"
-  output   = "../generated/prisma"
 }
 
 datasource db {
@@ -17,23 +16,25 @@ datasource db {
 model User {
   id    Int     @id @default(autoincrement())
   email String  @unique
-  username  String
+  username  String @unique
   password String
-  receivedDonations Donation[]
+  receivedDonations Donation[] @relation("ReceivedDonations")
+  donations Donation[] @relation("Donation")
   profile Profile?
-  bankCard BankCard[]
-   createdAt DateTime @default(now())
+  profileId Int?
+  bankCard BankCard?
+  createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
 model Profile {
   id Int @id @default(autoincrement())
   name String
-  about String
-  avatarImage String
-  socialMediaURL String
-  backgroundImage String
-  successMessage String
+  about String?
+  avatarImage String?
+  socialMediaURL String?
+  backgroundImage String?
+  successMessage String?
   userId Int @unique
   user User @relation( fields: [userId], references: [id])
   createdAt DateTime @default(now())
@@ -43,10 +44,11 @@ model Profile {
 model Donation {
   id Int @id @default(autoincrement())
   amount Int
-  specialMesssage String
-  socialURLOrBuyMeACoffee String
+  specialMesssage String?
+  socialURLOrBuyMeACoffee String?
   donorId Int
-  user User @relation(fields: [donorId], references: [id])
+  donor User @relation("Donation", fields: [donorId], references: [id])
+  user User @relation("ReceivedDonations", fields: [recipientId], references: [id])  
   recipientId Int
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -55,14 +57,15 @@ model Donation {
 
 model BankCard {
     id Int @id @default(autoincrement())
-    country String?
+    country String
     firstName String
     lastName String
     cardNumber String @unique
     expiryDate DateTime
-    userId Int 
+    userId Int @unique
     user User @relation(fields: [userId], references: [id])
     createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
+
 

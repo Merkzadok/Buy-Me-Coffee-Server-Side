@@ -5,5 +5,6 @@ const bankCardRouter = express.Router();
 
 bankCardRouter.post("/create/:userId", createUserBankCard);
 bankCardRouter.put("/update/:bankCardId", createUserBankCard);
+bankCardRouter.get("/get/:userId", createUserBankCard);
 
 export default bankCardRouter;
