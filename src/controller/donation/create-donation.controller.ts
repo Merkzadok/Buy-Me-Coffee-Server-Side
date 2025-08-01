@@ -10,19 +10,18 @@ export const createDonation = async (req: Request, res: Response) => {
     recipientId,
   } = req.body;
   try {
-    // const donation = await prisma.donation.create({
-    //     data: {
-    //         amount,
-    //         specialMesssage,
-    //         socialURLOrBuyMeACoffee,
-    //         user:{connect:{
-    //             id:Number(donorId)
-    //         }},
-    //         recipientId,
-    //     },
-    // });
-    // console.log("donation:", donation);
-    // res.status(200).json({ donation });
+
+    const donation = await prisma.donation.create({
+      data: {
+        amount,
+        specialMesssage,
+        socialURLOrBuyMeACoffee,
+        donorId,
+        recipientId,
+      },
+    });
+    console.log("donation:", donation);
+    res.status(200).json({ donation });
   } catch (error) {
     res.status(500).json({ message: error });
   }
