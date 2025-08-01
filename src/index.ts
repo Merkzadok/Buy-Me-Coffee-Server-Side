@@ -14,9 +14,7 @@ app.use(express.json());
 
 app.use("/users", userRouter);
 app.use("/profile", profileRouter);
-
-app.use("/donation", donationRouter)
-
+app.use("/donation", donationRouter);
 app.use("/bank-cards", bankCardRouter);
 
 

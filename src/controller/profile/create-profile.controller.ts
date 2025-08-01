@@ -32,7 +32,7 @@ export const createProfile = async (req: Request, res: Response) => {
       },
     });
     console.log("userProfile:", userProfile)
-    res.status(200).json({ success: true });
+    res.status(200).json({ userProfile });
   } catch (error) {
     console.log(error);
   }
