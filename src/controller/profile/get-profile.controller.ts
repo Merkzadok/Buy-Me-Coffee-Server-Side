@@ -2,12 +2,12 @@ import { Response, Request } from "express";
 import { prisma } from "../../utils/prisma";
 
 export const getUserProfile = async (req: Request, res: Response) => {
-  const { username } = req.params;
-
   try {
+    const { username } = req.params;
+    console.log("username", username);
     const profile = await prisma.user.findUnique({
       where: {
-        username: username,
+        username,
       },
     });
 
