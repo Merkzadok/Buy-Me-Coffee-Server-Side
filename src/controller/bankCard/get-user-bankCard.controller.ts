@@ -1,13 +1,10 @@
 import { Response, Request } from "express";
 import { prisma } from "../../utils/prisma";
 
-export const getUsers = async (req: Request, res: Response) => {
+export const getUserBankCard = async (req: Request, res: Response) => {
   try {
-    const user = await prisma.user.findUnique({
-      where: { id: Number(req.params.id) },
-      include: {
-        bankCard: true,
-      },
+    const user = await prisma.bankCard.findUnique({
+      where: { userId: Number(req.params.userId) },
     });
 
     res.status(200).json({ user });
