@@ -10,6 +10,7 @@ export const createDonation = async (req: Request, res: Response) => {
     recipientId,
   } = req.body;
   try {
+
     const donation = await prisma.donation.create({
       data: {
         amount,
