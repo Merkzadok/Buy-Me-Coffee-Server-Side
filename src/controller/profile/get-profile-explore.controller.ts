@@ -3,9 +3,9 @@ import { prisma } from "../../utils/prisma";
 
 export const getProfileExplore = async(req:Request, res:Response) =>{
     try {
-        const users = await prisma.profile.findMany();
+        const usersProfile = await prisma.profile.findMany();
 
-        res.status(200).json({users})
+        res.status(200).json({usersProfile})
     } catch (error) {
         console.log(error);
         
