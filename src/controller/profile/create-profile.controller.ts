@@ -22,6 +22,8 @@ export const createProfile = async (req: Request, res: Response) => {
       return;
     }
 
+
+
     const userProfile = await prisma.profile.create({
       data: {
         name,

@@ -3,6 +3,7 @@ import jwt, { JwtPayload } from "jsonwebtoken";
 import { prisma } from "../../utils/prisma";
 
 export const getCurrentProfile = async (req: Request, res: Response) => {
+  
   try {
     const authHeaderUser = req.headers.authorization || "";
 
