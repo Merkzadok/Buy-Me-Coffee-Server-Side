@@ -6,11 +6,14 @@ import profileRouter from "./router/profile.router";
 import donationRouter from "./router/donation.router";
 
 import bankCardRouter from "./router/bankCard.router";
+import cors from "cors"
 
 
 const app = express();
 const PORT = 4001;
 app.use(express.json());
+app.use(cors());
+
 
 app.use("/users", userRouter);
 app.use("/profile", profileRouter);

@@ -27,7 +27,6 @@ export const SignIn = async (req: Request, res: Response) => {
       const hour = Math.floor(Date.now() / 1000) * 60 * 60;
 
       const accesstoken = jwt.sign({ exp: hour, UserData }, secret);
-
       res.status(200).json({ accesstoken });
     } else {
       res.status(400).json({ message: "Email and password invalid" });

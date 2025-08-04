@@ -7,7 +7,7 @@ import { getSearchDonations } from "../controller/donation/get-search-donations.
 const donationRouter = express.Router();
 
 donationRouter.post("/create-donation", createDonation);
-donationRouter.get("/received/:userId", getReceived);
+donationRouter.get("/received/:userId", getReceived);  
 donationRouter.get("/total/:userId", getTotalEarnings)
 donationRouter.get("/search-donations/:userId", getSearchDonations)
 

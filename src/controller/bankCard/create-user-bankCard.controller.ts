@@ -52,9 +52,7 @@ export const createUserBankCard = async (req: Request, res: Response) => {
         lastName,
         cardNumber,
         expiryDate: new Date(expiryDate),
-        user: {
-          connect: { id: Number(userId) },
-        },
+        userId: Number(userId),
       },
     });
 
