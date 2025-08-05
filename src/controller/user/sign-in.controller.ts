@@ -21,12 +21,12 @@ export const SignIn = async (req: Request, res: Response) => {
       const UserData = {
         user: user?.id,
         email: user?.email,
-        username:user?.username
+        username: user?.username,
       };
       const secret = "Super-Duper-Secret-Zayu";
-      const hour = Math.floor(Date.now() / 1000) * 60 * 60;
+      const sixHour = Math.floor(Date.now() / 1000) * 6 * 60 * 60;
 
-      const accesstoken = jwt.sign({ exp: hour, UserData }, secret);
+      const accesstoken = jwt.sign({ exp: sixHour, UserData }, secret);
       res.status(200).json({ accesstoken });
     } else {
       res.status(400).json({ message: "Email and password invalid" });

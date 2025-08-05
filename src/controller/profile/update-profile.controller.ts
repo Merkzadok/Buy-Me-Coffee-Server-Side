@@ -30,9 +30,6 @@ export const updateProfile = async (req: Request, res: Response) => {
 
     res.status(200).json({ profile });
 
-    // const user = await prisma.profile.update({
-    //   where: { id: Number(profileId) },
-    // },{data:{}});
     
   } catch (error) {
     res.status(500).json({ error });
