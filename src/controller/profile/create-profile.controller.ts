@@ -14,15 +14,11 @@ export const createProfile = async (req: Request, res: Response) => {
   const { userId } = req.params;
 
   try {
-    console.log("useriD", userId);
-    console.log("name:", name);
 
     if (!avatarImage || !about || !name || !socialMediaURL) {
       res.status(400).json({ error: "Missing fields" });
       return;
     }
-
-
 
     const userProfile = await prisma.profile.create({
       data: {
@@ -48,6 +44,7 @@ export const createProfile = async (req: Request, res: Response) => {
     console.log("userProfile:", userProfile);
 
     res.status(200).json({ userProfile });
+
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: "User profile already created", error });

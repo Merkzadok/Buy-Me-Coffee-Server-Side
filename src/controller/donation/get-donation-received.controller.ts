@@ -9,6 +9,7 @@ export const getReceived = async (req: Request, res: Response) => {
       recipientId: Number(userId),
     },
   });
+  
   res.status(200).json({ donations });
   } catch (error) {
     res.status(500).json({error: "Хандивуудыг дуудахад алдаа гарлаа"})

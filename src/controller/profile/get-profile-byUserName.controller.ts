@@ -10,15 +10,26 @@ export const getUserProfile = async (req: Request, res: Response) => {
       return;
     }
 
-    const profile = await prisma.user.findUnique({
+    const user = await prisma.user.findUnique({
       where: {
         username,
       },
     });
+    
+
+    if (!user) {
+      res.status(400).json({ message: "User not found." });
+      return;
+    }
+
+    if (!user?.profileId) {
+      res.status(400).json({ message: "User profile not found." });
+      return;
+    }
 
     const userProfile = await prisma.profile.findUnique({
       where: {
-        id: Number(profile?.profileId),
+        id: Number(user?.profileId),
       },
     });
 

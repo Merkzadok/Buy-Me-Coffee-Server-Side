@@ -13,11 +13,10 @@ export const getCurrentProfile = async (req: Request, res: Response) => {
     }
 
     const userFromHeaders = authHeaderUser.split(" ")[1];
-    console.log("userIdFromHeaders", userFromHeaders);
+
 
     const secret = "Super-Duper-Secret-Zayu";
     const decoded = jwt.verify(userFromHeaders, secret) as JwtPayload;
-    console.log("decoded: ", decoded.UserData);
 
     const user = await prisma.user.findUnique({
       where: { id: decoded?.UserData?.user },
@@ -26,7 +25,7 @@ export const getCurrentProfile = async (req: Request, res: Response) => {
     if (!user) {
       res.status(400).json({ message: "No user info in request" });
     }
-    console.log(user);
+
     res.status(200).json({ user });
   } catch (error) {
     res.status(500).json({ error });
