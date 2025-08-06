@@ -34,6 +34,9 @@ function isValidExpiryDate(dateStr: string): boolean {
 
 export const createUserBankCard = async (req: Request, res: Response) => {
   const { country, firstName, lastName, cardNumber, expiryDate,CVC } = req.body;
+
+  console.log("req.body", req.body);
+  
   const { userId } = req.params;
 
   // if (!isValidCardNumber(cardNumber)) {
@@ -53,7 +56,7 @@ export const createUserBankCard = async (req: Request, res: Response) => {
         cardNumber,
         expiryDate: new Date(expiryDate),
         userId: Number(userId),
-        CVC
+        CVC:Number(CVC)
       },
     });
 

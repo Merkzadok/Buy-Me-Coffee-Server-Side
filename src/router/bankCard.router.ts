@@ -10,3 +10,4 @@ bankCardRouter.put("/update/:bankCardId", UpdateBankCard);
 bankCardRouter.get("/get/:userId", getUserBankCard);
 
 export default bankCardRouter;
+  
