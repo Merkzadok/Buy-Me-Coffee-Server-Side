@@ -1,25 +1,21 @@
 import { Response, Request } from "express";
 import jwt, { JwtPayload } from "jsonwebtoken";
 import { prisma } from "../../utils/prisma";
+import { GetUserAuthInfoRequest } from "../../middleware/jw-verify";
 
-export const getCurrentProfile = async (req: Request, res: Response) => {
+export const getCurrentProfile = async (req: GetUserAuthInfoRequest, res: Response) => {
   
   try {
-    const authHeaderUser = req.headers.authorization || "";
-
-    if (!authHeaderUser || !authHeaderUser.startsWith("Bearer ")) {
-      res.status(400).json({ success: false });
+    const headerUser = req.user ;
+    console.log("headerUser::::", headerUser);
+    
+    if(!headerUser){
+      res.status(400).json({message:"Error"});
       return;
     }
 
-    const userFromHeaders = authHeaderUser.split(" ")[1];
-
-
-    const secret = "Super-Duper-Secret-Zayu";
-    const decoded = jwt.verify(userFromHeaders, secret) as JwtPayload;
-
     const user = await prisma.user.findUnique({
-      where: { id: decoded?.UserData?.user },
+      where: { id: headerUser?.userId },
     });
 
     if (!user) {
