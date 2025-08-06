@@ -6,7 +6,8 @@ import { getProfileExplore } from "../controller/profile/get-profile-explore.con
 
 const profileRouter = express.Router();
 
-profileRouter.post("/:userId", createProfile);
+profileRouter.post("/:userId", createProfile); 
+
 profileRouter.get("/view/:username", getUserProfile);
 profileRouter.get("/explore", getProfileExplore);
 // profileRouter.put("/:profileId", updateProfile)
