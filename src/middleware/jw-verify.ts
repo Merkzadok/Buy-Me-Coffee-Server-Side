@@ -27,6 +27,8 @@ export const authenticateToken = (
 
     try {
         const decoded = verify(token, secret) as JwtPayload
+        console.log("decoded:", decoded);
+        
         console.log("decoded decoded:::", decoded.data);
 
         req.user = decoded.data as DecodedUser
