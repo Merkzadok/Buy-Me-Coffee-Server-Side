@@ -29,8 +29,8 @@ export const createUser = async (req: Request, res: Response) => {
       },
     });
 
-    const UserData = {
-      user: user?.id,
+    const data = {
+      userId: user?.id,
       email: user?.email,
       username: user?.username,
     };
@@ -38,10 +38,7 @@ export const createUser = async (req: Request, res: Response) => {
     const secret = "Super-Duper-Secret-Zayu";
     const sixHour = Math.floor(Date.now() / 1000) * 6 * 60 * 60;
 
-    const signUpUserAccessToken = jwt.sign(
-      { exp: sixHour, UserData },
-      secret
-    );
+    const signUpUserAccessToken = jwt.sign({ exp: sixHour, data }, secret);
 
     res.status(200).json({ signUpUserAccessToken });
   } catch (error) {

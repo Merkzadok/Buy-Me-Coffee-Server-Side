@@ -1,35 +1,25 @@
-/*
-  Warnings:
+-- CreateTable
+CREATE TABLE "public"."User" (
+    "id" SERIAL NOT NULL,
+    "email" TEXT NOT NULL,
+    "username" TEXT NOT NULL,
+    "password" TEXT NOT NULL,
+    "profileId" INTEGER,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
 
-  - You are about to drop the column `name` on the `User` table. All the data in the column will be lost.
-  - You are about to drop the `Post` table. If the table is not empty, all the data it contains will be lost.
-  - Added the required column `password` to the `User` table without a default value. This is not possible if the table is not empty.
-  - Added the required column `updatedAt` to the `User` table without a default value. This is not possible if the table is not empty.
-  - Added the required column `username` to the `User` table without a default value. This is not possible if the table is not empty.
-
-*/
--- DropForeignKey
-ALTER TABLE "public"."Post" DROP CONSTRAINT "Post_authorId_fkey";
-
--- AlterTable
-ALTER TABLE "public"."User" DROP COLUMN "name",
-ADD COLUMN     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-ADD COLUMN     "password" TEXT NOT NULL,
-ADD COLUMN     "updatedAt" TIMESTAMP(3) NOT NULL,
-ADD COLUMN     "username" TEXT NOT NULL;
-
--- DropTable
-DROP TABLE "public"."Post";
+    CONSTRAINT "User_pkey" PRIMARY KEY ("id")
+);
 
 -- CreateTable
 CREATE TABLE "public"."Profile" (
     "id" SERIAL NOT NULL,
     "name" TEXT NOT NULL,
-    "about" TEXT NOT NULL,
-    "avatarImage" TEXT NOT NULL,
-    "socialMediaURL" TEXT NOT NULL,
-    "backgroundImage" TEXT NOT NULL,
-    "successMessage" TEXT NOT NULL,
+    "about" TEXT,
+    "avatarImage" TEXT,
+    "socialMediaURL" TEXT,
+    "backgroundImage" TEXT,
+    "successMessage" TEXT,
     "userId" INTEGER NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
@@ -41,8 +31,8 @@ CREATE TABLE "public"."Profile" (
 CREATE TABLE "public"."Donation" (
     "id" SERIAL NOT NULL,
     "amount" INTEGER NOT NULL,
-    "specialMesssage" TEXT NOT NULL,
-    "socialURLOrBuyMeACoffee" TEXT NOT NULL,
+    "specialMesssage" TEXT,
+    "socialURLOrBuyMeACoffee" TEXT,
     "donorId" INTEGER NOT NULL,
     "recipientId" INTEGER NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -59,6 +49,7 @@ CREATE TABLE "public"."BankCard" (
     "lastName" TEXT NOT NULL,
     "cardNumber" TEXT NOT NULL,
     "expiryDate" TIMESTAMP(3) NOT NULL,
+    "CVC" INTEGER NOT NULL,
     "userId" INTEGER NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
@@ -66,11 +57,29 @@ CREATE TABLE "public"."BankCard" (
     CONSTRAINT "BankCard_pkey" PRIMARY KEY ("id")
 );
 
+-- CreateIndex
+CREATE UNIQUE INDEX "User_email_key" ON "public"."User"("email");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "User_username_key" ON "public"."User"("username");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Profile_userId_key" ON "public"."Profile"("userId");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "BankCard_cardNumber_key" ON "public"."BankCard"("cardNumber");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "BankCard_userId_key" ON "public"."BankCard"("userId");
+
 -- AddForeignKey
 ALTER TABLE "public"."Profile" ADD CONSTRAINT "Profile_userId_fkey" FOREIGN KEY ("userId") REFERENCES "public"."User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "public"."Donation" ADD CONSTRAINT "Donation_donorId_fkey" FOREIGN KEY ("donorId") REFERENCES "public"."User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "public"."Donation" ADD CONSTRAINT "Donation_recipientId_fkey" FOREIGN KEY ("recipientId") REFERENCES "public"."User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "public"."BankCard" ADD CONSTRAINT "BankCard_userId_fkey" FOREIGN KEY ("userId") REFERENCES "public"."User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

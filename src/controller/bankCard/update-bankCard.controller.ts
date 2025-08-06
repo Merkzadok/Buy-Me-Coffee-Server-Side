@@ -2,7 +2,7 @@ import { Response, Request } from "express";
 import { prisma } from "../../utils/prisma";
 
 export const UpdateBankCard = async (req: Request, res: Response) => {
-  const { country, firstName, lastName, cardNumber, expiryDate } = req.body;
+  const { country, firstName, lastName, cardNumber, expiryDate,CVC} = req.body;
   try {
     const bankCard = await prisma.bankCard.update({
       where: { id: Number(req.params.bankCardId) },
@@ -12,6 +12,7 @@ export const UpdateBankCard = async (req: Request, res: Response) => {
         lastName,
         cardNumber,
         expiryDate: new Date(expiryDate),
+        CVC
       },
     });
 
