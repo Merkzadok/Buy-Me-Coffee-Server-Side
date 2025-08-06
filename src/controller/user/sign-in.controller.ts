@@ -36,5 +36,4 @@ export const SignIn = async (req: Request, res: Response) => {
     }
   } catch (error) {
     res.status(500).send({ success: false, error });
-  }
-};
+  }£

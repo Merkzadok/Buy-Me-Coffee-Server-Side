@@ -2,6 +2,7 @@ import { Response, Request } from "express";
 import { prisma } from "../../utils/prisma";
 
 export const getUsersWithProfile = async (req: Request, res: Response) => {
+  
   try {
     const user = await prisma.user.findMany({
       include: {

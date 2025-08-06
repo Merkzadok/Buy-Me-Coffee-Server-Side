@@ -1,18 +1,51 @@
 import { Response, Request } from "express";
 import { prisma } from "../../utils/prisma";
+import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 
 export const createUser = async (req: Request, res: Response) => {
   const { username, email, password } = req.body;
+
+  const hashedPassword = await bcrypt.hash(password, 10);
+  console.log(req.body);
+
   try {
+    const existingUser = await prisma.user.findUnique({
+      where: {
+        email,
+      },
+    });
+
+    if (existingUser) {
+      res.status(400).json({ message: "User profile already created" });
+      return;
+    }
+
     const user = await prisma.user.create({
       data: {
         username,
         email,
-        password,        
+        password: hashedPassword,
       },
     });
-    res.status(200).json({ user });
+
+    const UserData = {
+      user: user?.id,
+      email: user?.email,
+      username: user?.username,
+    };
+
+    const secret = "Super-Duper-Secret-Zayu";
+    const sixHour = Math.floor(Date.now() / 1000) * 6 * 60 * 60;
+
+    const signUpUserAccessToken = jwt.sign(
+      { exp: sixHour, UserData },
+      secret
+    );
+
+    res.status(200).json({ signUpUserAccessToken });
   } catch (error) {
+    console.log(error);
     res.status(500).json({ message: error });
   }
 };
