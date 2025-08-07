@@ -2,7 +2,6 @@ import { Request, Response } from "express";
 import { prisma } from "../../utils/prisma";
 
 export const createDonation = async (req: Request, res: Response) => {
-
   const {
     amount,
     specialMesssage,
@@ -31,4 +30,14 @@ export const createDonation = async (req: Request, res: Response) => {
   } catch (error) {
     res.status(500).json({ message: error });
   }
+};
+
+const donation = {
+  donor: {
+    // handiv ogson hun
+    name: "John Doe",
+    profile: {
+      // profile handiv ogson hunii
+    },
+  },
 };

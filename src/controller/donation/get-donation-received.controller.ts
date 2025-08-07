@@ -5,13 +5,22 @@ export const getReceived = async (req: Request, res: Response) => {
   const { userId } = req.params;
   try {
     const donations = await prisma.donation.findMany({
-    where: {
-      recipientId: Number(userId),
-    },
-  });
-  
-  res.status(200).json({ donations });
+      where: {
+        recipientId: Number(userId),
+      },
+      include: {
+        donor: {
+          select: {
+            id: true,
+            username: true,
+            profile: true,
+          },
+        },
+      },
+    });
+
+    res.status(200).json({ donations });
   } catch (error) {
-    res.status(500).json({error: "Хандивуудыг дуудахад алдаа гарлаа"})
+    res.status(500).json({ error: "Хандивуудыг дуудахад алдаа гарлаа" });
   }
 };
