@@ -2,8 +2,9 @@ import express from "express";
 import { createUser } from "../controller/user/create-user.controller";
 import { getUsers } from "../controller/user/get-users.controller";
 import { getUsersWithProfile } from "../controller/user/get-users-with-profile.controller";
-import { UpdateUser } from "../controller/user/update-user.controller";
+
 import { SignIn } from "../controller/user/sign-in.controller";
+import { UpdateUser } from "../controller/user/update-user.controller";
 
 const userRouter = express.Router();
 
