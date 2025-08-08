@@ -23,21 +23,13 @@ export const getProfileExplore = async (req: Request, res: Response) => {
             username: true,
           },
         },
-        
       },
     });
-    
-    const totalPage = Math.ceil(totalUsers/takeData)
+
+    const totalPage = Math.ceil(totalUsers / takeData);
 
     res.status(200).json({ usersProfile, totalUsers, totalPage });
   } catch (error) {
     res.status(500).json({ error });
   }
 };
-
-
-//1,2,3,4,5,6,7 hoyr hoyror harhuulah
-// page  takedata-2
-// p1 1,2 1*2=2 
-// p2 2*2   1,2 || 3,4 skip-2 ; take-2 4-2=skipdata
-// p3 2*3   1,2,3,4 || 5,6   skip-4 ; take-2 6-takedate =skipdata-n utga => 4 

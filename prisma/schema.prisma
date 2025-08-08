@@ -50,7 +50,7 @@ model Donation {
   donor User @relation("Donation", fields: [donorId], references: [id])
   user User @relation("ReceivedDonations", fields: [recipientId], references: [id])  
   recipientId Int
-  createdAt DateTime @default(now())
+  createdAt DateTime @default(now()) @db.Date()
   updatedAt DateTime @updatedAt
   
 }

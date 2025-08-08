@@ -4,15 +4,24 @@ import { prisma } from "../../utils/prisma";
 export const getTotalEarnings = async (req: Request, res: Response) => {
   const { userId } = req.params;
   const { from, to } = req.query;
-  try {
-    const whereClause: any = { recipientId: Number(userId) };
 
-    if (from && to) {
-      whereClause.createdAt = {
-        gte: new Date(from as string),
-        lte: new Date(to as string),
-      };
-    }
+  try {
+    const whereClause: any = {
+      AND: [
+        {
+          createdAt: {
+            gte: from === "undefined" ? undefined : new Date(from as string),
+          },
+        },
+        {
+          createdAt: {
+            lte: to === "undefined" ? undefined : new Date(to as string),
+          },
+        },
+      ],
+      recipientId: Number(userId),
+    };
+
     const donations = await prisma.donation.findMany({
       where: whereClause,
     });

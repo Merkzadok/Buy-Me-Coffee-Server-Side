@@ -14,7 +14,6 @@ export const createProfile = async (req: Request, res: Response) => {
   const { userId } = req.params;
 
   try {
-
     if (!avatarImage || !about || !name || !socialMediaURL) {
       res.status(400).json({ error: "Missing fields" });
       return;
@@ -41,10 +40,7 @@ export const createProfile = async (req: Request, res: Response) => {
       },
     });
 
-    console.log("userProfile:", userProfile);
-
     res.status(200).json({ userProfile });
-
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: "User profile already created", error });
