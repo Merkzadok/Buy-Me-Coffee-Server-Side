@@ -7,7 +7,6 @@ import donationRouter from "./router/donation.router";
 
 import bankCardRouter from "./router/bankCard.router";
 import cors from "cors";
-import { sendEmail } from "./utils/sendEmail";
 
 const app = express();
 const PORT = 4001;
@@ -20,7 +19,6 @@ app.use("/donation", donationRouter);
 app.use("/bank-cards", bankCardRouter);
 
 app.get("/hello", async (req, res) => {
-  // await sendEmail();
   res.status(200).json({ message: "success" });
 });
 
