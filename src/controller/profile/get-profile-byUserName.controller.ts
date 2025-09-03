@@ -15,7 +15,6 @@ export const getUserProfile = async (req: Request, res: Response) => {
         username,
       },
     });
-    
 
     if (!user) {
       res.status(400).json({ message: "User not found." });
